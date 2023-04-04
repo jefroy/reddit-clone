@@ -1,14 +1,13 @@
 import React from 'react';
+import Navbar from "@/components/Navbar/Navbar";
 
-type LayoutProps = {};
-
-const Layout : React.FC<LayoutProps> = ({ children }) => {
+const Layout : React.FC = ({ children }) => {
     return (
         <>
-            {/*<Navbar />*/}
+            <Navbar />
             <main>{children}</main>
         </>
     );
-}
+};
 
 export default Layout;
