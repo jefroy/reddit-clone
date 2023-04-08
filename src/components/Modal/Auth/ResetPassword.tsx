@@ -22,7 +22,7 @@ const ResetPassword : React.FC<ResetPasswordProps> = ({toggleView}) => {
         const res = await sendPasswordResetEmail(email);
         setSuccess(res);
     };
-    
+
     return (
         <Flex direction="column" alignItems="center" width="100%">
             <Icon as={BsReddit} color="brand.100" fontSize={40} mb={2}/>

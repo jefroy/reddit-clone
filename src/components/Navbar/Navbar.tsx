@@ -24,7 +24,7 @@ const Navbar : React.FC = () => {
             </Flex>
             {/*<Directory />*/}
             <SearchInput />
-            <RightContent user={user} />
+            <RightContent user={user!} />
         </Flex>
     );
 }
