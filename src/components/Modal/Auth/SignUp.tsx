@@ -24,7 +24,6 @@ const SignUp : React.FC = () => {
         userError,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    // todo: add firebase logic
     const onSubmit = async (e) => {
         e.preventDefault();
         if (error){
