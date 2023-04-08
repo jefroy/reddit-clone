@@ -16,6 +16,7 @@ import AuthInputs from "@/components/Modal/Auth/AuthInputs";
 import OAuthButtons from "@/components/Modal/Auth/OAuthButtons";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "@/firebase/clientApp";
+import ResetPassword from "@/components/Modal/Auth/ResetPassword";
 
 
 const AuthModal : React.FC = () => {
@@ -38,6 +39,13 @@ const AuthModal : React.FC = () => {
         }
         console.log('curr user: ', user)
     }, [user])
+
+    const toggleView = (view: string) => {
+        setModalState({
+            ...modalState,
+            view: view as typeof modalState.view,
+        });
+    };
 
     return (
         <>
@@ -64,11 +72,17 @@ const AuthModal : React.FC = () => {
                             pb={6}
                             // border={"1px solid red"}
                         >
-                            {/*oauth buttons*/}
-                            <OAuthButtons />
-                            <Text color={"gray.500"} fontWeight={700}>OR</Text>
-                            <AuthInputs />
-                            {/*<ResetPassword />*/}
+                            {
+                                modalState.view === 'login' || modalState.view === 'signup' ? (
+                                    <>
+                                        <OAuthButtons />
+                                        <Text color={"gray.500"} fontWeight={700}>OR</Text>
+                                        <AuthInputs />
+                                    </>
+                                ) : (
+                                    <ResetPassword  toggleView={toggleView}/>
+                                )
+                            }
                         </Flex>
                     </ModalBody>
 

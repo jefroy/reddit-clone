@@ -1,9 +1,11 @@
 import { atom } from "recoil";
 
+export type ModalView = "login" | "signup" | "resetPassword";
+
 // typescript interfact to determine the state of the Auth Modal
 export interface AuthModalState {
     open: boolean; // is open?
-    view: 'login' | 'signup' | 'resetPassword'; // the type of modal we want to open
+    view: ModalView; // the type of modal we want to open
 }
 
 // default state of an auth modal

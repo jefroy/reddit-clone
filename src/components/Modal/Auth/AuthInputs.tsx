@@ -9,7 +9,6 @@ type AuthInputsProps = {};
 
 const AuthInputs : React.FC<AuthInputsProps> = () => {
     const modalState = useRecoilValue(authModalState); // value of the state only
-
     return (
         <Flex
             direction={"column"}
