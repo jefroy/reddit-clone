@@ -10,6 +10,7 @@ import {
     Text
 } from "@chakra-ui/react";
 import {RiHomeSmileFill} from "react-icons/ri";
+import Communities from "@/components/Navbar/Directory/Communities";
 
 const Directory: React.FC = () => {
     const [open, setOpen] = useState(false);
@@ -49,7 +50,7 @@ const Directory: React.FC = () => {
                     </Flex>
                 </MenuButton>
                 <MenuList maxHeight="300px" overflow="scroll" overflowX="hidden">
-                    {/*<Communities />*/}
+                    <Communities />
                 </MenuList>
             </>
         </Menu>
