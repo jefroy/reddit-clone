@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Flex, Input, Text} from "@chakra-ui/react";
 import {useSetRecoilState} from "recoil";
 import {authModalState} from "@/atoms/authModalAtom";
 import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth";
-import {auth} from "@/firebase/clientApp";
+import {auth, firestore} from "@/firebase/clientApp";
 import {FIREBASE_ERRORS} from "@/firebase/errors";
+import {User} from "@firebase/auth";
+import {addDoc, collection} from "@firebase/firestore";
 
 const SignUp : React.FC = () => {
     const setAuthModalState = useSetRecoilState(authModalState); // only need the set function here
@@ -42,6 +44,15 @@ const SignUp : React.FC = () => {
             [event.target.name]: event.target.value, // email: typedIn@value.com , or password: bobpass
         }))
     };
+
+    useEffect(() => {
+        const createUserDocument = async (user: User) => {
+            await addDoc(collection(firestore, "users"), JSON.parse(JSON.stringify(user)))
+        }
+        if (user) {
+            const res = createUserDocument(user.user).catch(console.error)
+        }
+    }, [user])
 
     return (
         <form onSubmit={onSubmit}>
