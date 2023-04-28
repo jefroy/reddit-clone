@@ -75,14 +75,18 @@ const CreateCommunityModal : React.FC<CreateCommunityModalProps> = ({
                     numberOfMembers: 1,
                     privacyType: communityType,
                 });
-
-                // transaction.set(
-                //     doc(firestore, `users/${userId}/communitySnippets`, name),
-                //     {
-                //         communityId: name,
-                //         isModerator: true,
-                //     }
-                // );
+                // create communitySnippet on user
+                transaction.set(
+                    doc(
+                        firestore,
+                        `users/${userId}/communitySnippets`,
+                        name
+                    ),
+                    {
+                        communityId: name,
+                        isModerator: true,
+                    }
+                );
             });
         } catch (error : any) {
             console.log("Transaction error", error);
