@@ -7,6 +7,7 @@ import {auth, firestore} from "@/firebase/clientApp";
 import {FIREBASE_ERRORS} from "@/firebase/errors";
 import {User} from "@firebase/auth";
 import {addDoc, collection} from "@firebase/firestore";
+import {AppUser} from "@/firebase/models/AppUser";
 
 const SignUp : React.FC = () => {
     const setAuthModalState = useSetRecoilState(authModalState); // only need the set function here
@@ -45,10 +46,13 @@ const SignUp : React.FC = () => {
         }))
     };
 
+    const createUserDocument = async (user: User) => {
+        let appUser = new AppUser(user);
+        await appUser.create();
+    }
+
     useEffect(() => {
-        const createUserDocument = async (user: User) => {
-            await addDoc(collection(firestore, "users"), JSON.parse(JSON.stringify(user)))
-        }
+
         if (user) {
             const res = createUserDocument(user.user).catch(console.error)
         }

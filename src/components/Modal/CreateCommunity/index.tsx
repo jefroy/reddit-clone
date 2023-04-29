@@ -21,6 +21,7 @@ import {HiLockClosed} from "react-icons/hi";
 import {useSetRecoilState} from "recoil";
 import {firestore} from "@/firebase/clientApp";
 import ModalWrapper from "@/components/Modal/ModalWrapper";
+import {Community} from "@/firebase/models/Community";
 
 type CreateCommunityModalProps = {
     isOpen : boolean;
@@ -60,34 +61,8 @@ const CreateCommunityModal : React.FC<CreateCommunityModalProps> = ({
         // start creating the entry in the db
         setLoading(true);
         try {
-            // Create community document and communitySnippet subcollection document on user
-            const communityDocRef = doc(firestore, "communities", name); // todo: change collection name to public static var!
-            await runTransaction(firestore, async (transaction) => {
-                const communityDoc = await transaction.get(communityDocRef);
-                if (communityDoc.exists()) {
-                    throw new Error(`Sorry, /r${name} is taken. Try another.`); // error.message underneath
-                }
-
-                // create community
-                transaction.set(communityDocRef, {
-                    creatorId: userId,
-                    createdAt: serverTimestamp(),
-                    numberOfMembers: 1,
-                    privacyType: communityType,
-                });
-                // create communitySnippet on user
-                transaction.set(
-                    doc(
-                        firestore,
-                        `users/${userId}/communitySnippets`,
-                        name
-                    ),
-                    {
-                        communityId: name,
-                        isModerator: true,
-                    }
-                );
-            });
+            let newCommunity = new Community(name, userId, communityType)
+            await newCommunity.createWithUser();
         } catch (error : any) {
             console.log("Transaction error", error);
             setNameError(error.message); // from the throw stmt above
