@@ -44,9 +44,7 @@ export class Community {
             // create communitySnippet on user
             const newCommDoc = doc(
                 firestore,
-                `${AppUser.COLLECTION_NAME}/
-                ${this.creatorId}/
-                ${CommunitySnippet.COLLECTION_NAME}`,
+                `${AppUser.COLLECTION_NAME}/${this.creatorId}/${CommunitySnippet.COLLECTION_NAME}`,
                 this.name
             );
             const commSnippet = new CommunitySnippet(this.name, true);
