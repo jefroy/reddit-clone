@@ -4,12 +4,20 @@ import {firestore} from "@/firebase/clientApp";
 import {doc, getDoc} from "firebase/firestore";
 import {Community} from "@/firebase/models/Community";
 import safeJsonStringify from "safe-json-stringify";
+import CommunityNotFound from "@/components/Community/NotFound";
 
 type indexProps = {
     communityData: Community;
 };
 
 const index : React.FC<indexProps> = ({ communityData }) => {
+
+    if (!communityData){ // check for the empty string which should indicate that the community entered/from url query does not exist
+        return (
+            <CommunityNotFound />
+        );
+    }
+
     return (
         <div>
             Community Page : {communityData.id}
@@ -40,7 +48,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext){
         console.log(communityData);
         return {
             props: {
-                communityData: communityData,
+                communityData: communityDoc.exists() ? communityData : "", // if doc found, return the data, otherwise return an empty string
             }
         }
     } catch (e) {
