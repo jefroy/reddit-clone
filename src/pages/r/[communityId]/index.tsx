@@ -6,6 +6,7 @@ import {Community} from "@/firebase/models/Community";
 import safeJsonStringify from "safe-json-stringify";
 import CommunityNotFound from "@/components/Community/NotFound";
 import Header from "@/components/Community/Header";
+import PageContent from "@/components/Layout/PageContent";
 
 type indexProps = {
     communityData: Community;
@@ -22,13 +23,21 @@ const index : React.FC<indexProps> = ({ communityData }) => {
     return (
         <>
             <Header communityData={communityData} />
-            <div>
-                Community Page : {communityData.id}
-                <p>{JSON.stringify(communityData.createdAt)}</p>
-                <p>{communityData.creatorId}</p>
-                <p>{communityData.privacyType}</p>
-                <p>{communityData.numberOfMembers}</p>
-            </div>
+            <PageContent>
+                {/* Left Content */}
+                <>
+                    {/*<CreatePostLink />*/}
+                    {/*<Posts*/}
+                    {/*    communityData={communityData}*/}
+                    {/*    userId={user?.uid}*/}
+                    {/*    loadingUser={loadingUser}*/}
+                    {/*/>*/}
+                </>
+                {/* Right Content */}
+                <>
+                    {/*<About communityData={communityData} />*/}
+                </>
+            </PageContent>
         </>
     );
 }
