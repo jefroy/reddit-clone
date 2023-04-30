@@ -23,6 +23,9 @@ export class Community {
         this.name = name;
         this.creatorId = creatorId;
         this.privacyType = privacyType;
+        this.id = "";
+        this.imageURL = "";
+        this.numberOfMembers = 0;
     }
 
     async createWithUser(){
