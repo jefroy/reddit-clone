@@ -5,15 +5,16 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogin } from "react-icons/md";
 import { useResetRecoilState } from "recoil";
 import { auth } from "@/firebase/clientApp";
+import {communityState} from "@/atoms/communitiesAtom";
 
 type UserListProps = {};
 
 const UserList: React.FC<UserListProps> = () => {
-    // const resetCommunityState = useResetRecoilState(communityState);
+    const resetCommunityState = useResetRecoilState(communityState);
 
     const logout = async () => {
         await signOut(auth);
-        // resetCommunityState();
+        resetCommunityState();
     };
 
     return (
