@@ -103,6 +103,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
         try {
             const batch = writeBatch(firestore);
 
+            // create new comm snip
             const newSnip = new CommunitySnippet(community.id, false);
             newSnip.imageURL = community.imageURL || "";
 
@@ -116,6 +117,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
                 newSnip.toJSON()
             );
 
+            // increment number of users in community
             batch.update(doc(firestore, Community.COLLECTION_NAME, community.id), {
                 numberOfMembers: increment(1),
             });
@@ -123,7 +125,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
             // perform batch writes
             await batch.commit();
 
-            // Add current community to snippet
+            // Add current community to snippet to UI
             setCommunityStateValue((prev) => ({
                 ...prev,
                 mySnippets: [...prev.mySnippets, newSnip],
@@ -138,6 +140,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
         try {
             const batch = writeBatch(firestore);
 
+            // remove comm snip from user
             batch.delete(
                 doc(
                     firestore,
@@ -145,6 +148,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
                 )
             );
 
+            // decrement the number of members in the comm
             batch.update(
                 doc(
                     firestore,
@@ -157,6 +161,7 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
 
             await batch.commit();
 
+            // update UI
             setCommunityStateValue((prev) => ({
                 ...prev,
                 mySnippets: prev.mySnippets.filter(
