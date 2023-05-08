@@ -7,6 +7,7 @@ import safeJsonStringify from "safe-json-stringify";
 import CommunityNotFound from "@/components/Community/NotFound";
 import Header from "@/components/Community/Header";
 import PageContent from "@/components/Layout/PageContent";
+import CreatePostLink from "@/components/Community/CreatePostLink";
 
 type indexProps = {
     communityData: Community;
@@ -26,7 +27,7 @@ const index : React.FC<indexProps> = ({ communityData }) => {
             <PageContent>
                 {/* Left Content */}
                 <>
-                    {/*<CreatePostLink />*/}
+                    <CreatePostLink />
                     {/*<Posts*/}
                     {/*    communityData={communityData}*/}
                     {/*    userId={user?.uid}*/}
