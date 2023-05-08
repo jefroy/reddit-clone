@@ -28,7 +28,7 @@ const index : React.FC<indexProps> = ({ communityData }) => {
                 {/* Left Content */}
                 <>
                     <CreatePostLink />
-                    {/*<Posts*/}
+                    {/*<Post*/}
                     {/*    communityData={communityData}*/}
                     {/*    userId={user?.uid}*/}
                     {/*    loadingUser={loadingUser}*/}
