@@ -1,6 +1,6 @@
-import React from 'react';
-import {GetServerSidePropsContext} from "next";
-import {firestore} from "@/firebase/clientApp";
+import React, {useEffect} from 'react';
+import {GetServerSidePropsContext, NextPage} from "next";
+import {auth, firestore} from "@/firebase/clientApp";
 import {doc, getDoc} from "firebase/firestore";
 import {Community} from "@/firebase/models/Community";
 import safeJsonStringify from "safe-json-stringify";
@@ -8,17 +8,31 @@ import CommunityNotFound from "@/components/Community/NotFound";
 import Header from "@/components/Community/Header";
 import PageContent from "@/components/Layout/PageContent";
 import CreatePostLink from "@/components/Community/CreatePostLink";
+import Posts from "@/components/Post/Posts";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {useRecoilState} from "recoil";
+import {communityState} from "@/atoms/communitiesAtom";
 
-type indexProps = {
+type CommunityPageProps = {
     communityData: Community;
 };
 
-const index : React.FC<indexProps> = ({ communityData }) => {
+const CommunityPage: NextPage<CommunityPageProps> = ({ communityData }) => {
+    const [user, loadingUser] = useAuthState(auth);
 
-    if (!communityData){ // check for the empty string which should indicate that the community entered/from url query does not exist
-        return (
-            <CommunityNotFound />
-        );
+    const [communityStateValue, setCommunityStateValue] =
+        useRecoilState(communityState);
+
+    useEffect(() => {
+        setCommunityStateValue((prev) => ({
+            ...prev,
+            currentCommunity: communityData,
+        }));
+    }, [communityData]);
+
+    // Community was not found in the database
+    if (!communityData) {
+        return <CommunityNotFound />;
     }
 
     return (
@@ -28,11 +42,11 @@ const index : React.FC<indexProps> = ({ communityData }) => {
                 {/* Left Content */}
                 <>
                     <CreatePostLink />
-                    {/*<Post*/}
-                    {/*    communityData={communityData}*/}
-                    {/*    userId={user?.uid}*/}
-                    {/*    loadingUser={loadingUser}*/}
-                    {/*/>*/}
+                    <Posts
+                        communityData={communityData}
+                        userId={user?.uid}
+                        loadingUser={loadingUser}
+                    />
                 </>
                 {/* Right Content */}
                 <>
@@ -71,4 +85,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext){
     }
 }
 
-export default index;
+export default CommunityPage;
