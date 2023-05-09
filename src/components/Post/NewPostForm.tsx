@@ -5,6 +5,7 @@ import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
 import PostTabItem from "./PostTabItem";
 import TextInputs from "@/components/Post/PostForm/TextInputs";
+import ImageUpload from "@/components/Post/PostForm/ImageUpload";
 
 type NewPostFormProps = {};
 
@@ -55,10 +56,20 @@ const NewPostForm : React.FC<NewPostFormProps> = () => {
 
     const handleCreatePost = async () => {
 
-    }
-    const onSelectImage = () => {
-
-    }
+    };
+    const onSelectImage = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const reader = new FileReader();
+        if (event.target.files?.[0]){
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        reader.onload = (readerEvent) => {
+            if (readerEvent.target?.result){
+                setSelectedFile(readerEvent.target?.result as string);
+            }
+        }
+    };
     const onTextChange = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -70,7 +81,7 @@ const NewPostForm : React.FC<NewPostFormProps> = () => {
             ...prev,
             [name]: value, // wtf is this syntax
         }))
-    }
+    };
 
 
     return (
@@ -104,6 +115,16 @@ const NewPostForm : React.FC<NewPostFormProps> = () => {
                             onChange={onTextChange}
                             handleCreatePost={handleCreatePost}
                             loading={loading}
+                        />
+                    )
+                }
+                {
+                    selectedTab === "Images & Video" && (
+                        <ImageUpload
+                            selectedFile={selectedFile}
+                            onSelectImage={onSelectImage}
+                            setSelectedTab={setSelectedTab}
+                            setSelectedFile={setSelectedFile}
                         />
                     )
                 }
