@@ -39,9 +39,9 @@ const CreateCommmunityPostPage: NextPage = () => {
                 {user && (
                     <>
                         <NewPostForm
-                            // communityId={communityStateValue.currentCommunity.id}
-                            // communityImageURL={communityStateValue.currentCommunity.imageURL}
-                            // user={user}
+                            communityId={communityStateValue.currentCommunity.id}
+                            communityImageURL={communityStateValue.currentCommunity.imageURL}
+                            user={user}
                         />
                     </>
                 )}
