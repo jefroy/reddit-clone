@@ -13,7 +13,7 @@ import NewPostForm from "@/components/Post/NewPostForm";
 const CreateCommmunityPostPage: NextPage = () => {
     const [user, loadingUser, error] = useAuthState(auth);
     const router = useRouter();
-    const { community } = router.query;
+    const { communityId } = router.query;
     // const visitedCommunities = useRecoilValue(communityState).visitedCommunities;
     const communityStateValue = useRecoilValue(communityState);
     const { loading } = useCommunityData();
@@ -28,7 +28,7 @@ const CreateCommmunityPostPage: NextPage = () => {
         }
     }, [user, loadingUser, communityStateValue.currentCommunity]);
 
-    console.log("HERE IS USER", user, loadingUser);
+    // console.log("HERE IS USER", user, loadingUser);
 
     return (
         <PageContentLayout maxWidth="1060px">
@@ -39,7 +39,7 @@ const CreateCommmunityPostPage: NextPage = () => {
                 {user && (
                     <>
                         <NewPostForm
-                            communityId={communityStateValue.currentCommunity.id}
+                            communityId={communityId}
                             communityImageURL={communityStateValue.currentCommunity.imageURL}
                             user={user}
                         />
