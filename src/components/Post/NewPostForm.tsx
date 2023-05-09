@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Flex, Icon} from "@chakra-ui/react";
+import {Alert, AlertDescription, AlertIcon, AlertTitle, Flex, Icon} from "@chakra-ui/react";
 import { BiPoll } from "react-icons/bi";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
@@ -59,6 +59,7 @@ const NewPostForm : React.FC<NewPostFormProps> = (
     const router = useRouter();
     const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [textInputs, setTextInputs] = useState({
         title: "",
         body: "",
@@ -108,9 +109,10 @@ const NewPostForm : React.FC<NewPostFormProps> = (
             }
 
             // redirect to the communityPage using the router
-            // router.back();
+            router.back();
         } catch (e) {
             console.error(e)
+            setError(true);
         }
     };
     const onSelectImage = (
@@ -185,6 +187,17 @@ const NewPostForm : React.FC<NewPostFormProps> = (
                     )
                 }
             </Flex>
+            {
+                error && (
+                    <>
+                        <Alert status='error'>
+                            <AlertIcon />
+                            {/*<AlertTitle>Your browser is outdated!</AlertTitle>*/}
+                            <AlertDescription>Error Creating Post!.</AlertDescription>
+                        </Alert>
+                    </>
+                )
+            }
         </Flex>
     );
 }
