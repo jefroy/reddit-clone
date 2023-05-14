@@ -12,6 +12,7 @@ import Posts from "@/components/Post/Posts";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useRecoilState} from "recoil";
 import {communityState} from "@/atoms/communitiesAtom";
+import About from "@/components/Community/About";
 
 type CommunityPageProps = {
     communityData: Community;
@@ -50,7 +51,7 @@ const CommunityPage: NextPage<CommunityPageProps> = ({ communityData }) => {
                 </>
                 {/* Right Content */}
                 <>
-                    {/*<About communityData={communityData} />*/}
+                    <About communityData={communityData} />
                 </>
             </PageContent>
         </>

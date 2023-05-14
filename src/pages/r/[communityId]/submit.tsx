@@ -27,9 +27,7 @@ const CreateCommmunityPostPage: NextPage = () => {
             router.push(`/r/${communityStateValue.currentCommunity.id}`);
         }
     }, [user, loadingUser, communityStateValue.currentCommunity]);
-
-    // console.log("HERE IS USER", user, loadingUser);
-
+    
     return (
         <PageContentLayout maxWidth="1060px">
             <>

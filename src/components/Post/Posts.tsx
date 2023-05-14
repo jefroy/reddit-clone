@@ -60,7 +60,7 @@ const Posts : React.FC<PostsProps> = ({ communityData, userId }) => {
                     <PostLoader></PostLoader>
                 ) : (
                     <>
-                        <h1>POSTS!</h1>
+                        {/*<h1>POSTS!</h1>*/}
                         {
                             postStateValue.posts.map((item, idx) => {
                                 return(

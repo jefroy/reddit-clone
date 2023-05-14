@@ -1,6 +1,6 @@
 import {firestore} from "@/firebase/clientApp";
 import {doc, runTransaction, serverTimestamp} from "firebase/firestore";
-import {FieldValue} from "@firebase/firestore";
+import {FieldValue, Timestamp} from "@firebase/firestore";
 import {AppUser} from "@/firebase/models/AppUser";
 import {CommunitySnippet} from "@/firebase/models/CommunitySnippet";
 
@@ -8,7 +8,7 @@ export class Community {
     public static readonly COLLECTION_NAME = 'communities';
 
     id: string;
-    createdAt?: FieldValue;
+    createdAt: Timestamp;
     creatorId: string;
     numberOfMembers: number;
     privacyType: string;
