@@ -5,6 +5,7 @@ import {firestore} from "@/firebase/clientApp";
 import {collection} from "@firebase/firestore";
 import usePosts from "@/hooks/usePosts";
 import {Post} from "@/atoms/postsAtom";
+import PostItem from "@/components/Post/PostItem";
 
 type PostsProps = {
     communityData: Community;
@@ -14,7 +15,13 @@ type PostsProps = {
 
 const Posts : React.FC<PostsProps> = ({ communityData, userId }) => {
     const [loading, setLoading] = useState(false);
-    const { postStateValue, setPostStateValue } = usePosts();
+    const {
+        postStateValue,
+        setPostStateValue,
+        onVote,
+        onSelectPost,
+        onDeletePost
+    } = usePosts();
 
     const getPosts = async () => {
         try {
@@ -44,9 +51,24 @@ const Posts : React.FC<PostsProps> = ({ communityData, userId }) => {
     })
 
     return (
-        <div>
-            posts!!!!
-        </div>
+        <>
+            <h1>POSTS!</h1>
+            {
+                postStateValue.posts.map((item, idx) => {
+                    return(
+                        <PostItem
+                            key={idx}
+                            post={item}
+                            userIsCreator={userId === item.creatorId}
+                            userVoteValue={undefined}
+                            onVote={onVote}
+                            onDeletePost={onDeletePost}
+                            onSelectPost={onSelectPost}
+                        />
+                    )
+                })
+            }
+        </>
     );
 }
 

@@ -2,6 +2,7 @@ import { atom } from "recoil";
 import {Timestamp} from "@firebase/firestore";
 
 export type Post ={
+    userDisplayText? : string;
     id: string;
     communityId: string;
     creatorId: string;

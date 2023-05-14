@@ -19,6 +19,9 @@ const usePosts = (ssrCommunityData?: boolean) => {
     return {
         postStateValue,
         setPostStateValue,
+        onVote,
+        onSelectPost,
+        onDeletePost,
     };
 };
 
