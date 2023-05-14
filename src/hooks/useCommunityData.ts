@@ -174,19 +174,6 @@ const useCommunityData = (ssrCommunityData?: boolean) => {
         setLoading(false);
     };
 
-    // useEffect(() => {
-    //   if (ssrCommunityData) return;
-    //   const { community } = router.query;
-    //   if (community) {
-    //     const communityData =
-    //       communityStateValue.visitedCommunities[community as string];
-    //     if (!communityData) {
-    //       getCommunityData(community as string);
-    //       return;
-    //     }
-    //   }
-    // }, [router.query]);
-
     useEffect(() => {
         // if (ssrCommunityData) return;
         const { community } = router.query;
